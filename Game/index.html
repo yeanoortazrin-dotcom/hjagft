@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ludo Neo - Premium Board Game Experience</title>
+  <meta name="description" content="Experience Ludo like never before with 3D rolling physics, smart computer AI players, custom synthesizer sound effects, and neon glassmorphism layout.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <header>
+    <h1>Ludo Neo</h1>
+    <p>A Premium Cyberpunk Board Game Experience</p>
+  </header>
+
+  <div class="game-container">
+    <!-- Side HUD and Control Panel -->
+    <div class="side-panel">
+      
+      <!-- Setup Panel -->
+      <div class="panel" id="setup-screen">
+        <h2 class="setup-title">Game Setup</h2>
+        <div class="player-config">
+          <div class="player-row">
+            <span class="player-info-tag">
+              <span class="player-dot red"></span>
+              Red (Top-Left)
+            </span>
+            <select id="select-red" class="type-select">
+              <option value="human">Human Player</option>
+              <option value="computer">Computer AI</option>
+              <option value="none">Disabled</option>
+            </select>
+          </div>
+
+          <div class="player-row">
+            <span class="player-info-tag">
+              <span class="player-dot green"></span>
+              Green (Top-Right)
+            </span>
+            <select id="select-green" class="type-select">
+              <option value="computer">Computer AI</option>
+              <option value="human">Human Player</option>
+              <option value="none">Disabled</option>
+            </select>
+          </div>
+
+          <div class="player-row">
+            <span class="player-info-tag">
+              <span class="player-dot yellow"></span>
+              Yellow (Bottom-Right)
+            </span>
+            <select id="select-yellow" class="type-select">
+              <option value="computer">Computer AI</option>
+              <option value="human">Human Player</option>
+              <option value="none">Disabled</option>
+            </select>
+          </div>
+
+          <div class="player-row">
+            <span class="player-info-tag">
+              <span class="player-dot blue"></span>
+              Blue (Bottom-Left)
+            </span>
+            <select id="select-blue" class="type-select">
+              <option value="human">Human Player</option>
+              <option value="computer">Computer AI</option>
+              <option value="none">Disabled</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn" style="margin-top: 15px;" onclick="startNewGame()">Launch Game</button>
+        <button class="btn btn-secondary" style="margin-top: 8px;" onclick="showRules()">Read Rules</button>
+      </div>
+
+      <!-- Playing HUD -->
+      <div class="panel hud-panel" id="game-hud" style="display: none;">
+        <div class="turn-indicator">
+          Turn: <span id="turn-name-display" class="turn-name turn-red">Player Red</span>
+        </div>
+
+        <div class="players-status">
+          <!-- Red -->
+          <div class="player-card red" id="card-red">
+            <div class="player-card-header">
+              <span class="player-card-name">
+                <span class="player-dot red"></span>Red
+              </span>
+              <span class="player-card-type">HUMAN</span>
+            </div>
+            <div class="player-tokens-status">
+              <span class="mini-token-indicator"></span>
+              <span class="mini-token-indicator"></span>
+              <span class="mini-token-indicator"></span>
+              <span class="mini-token-indicator"></span>
+            </div>
+          </div>
+          <!-- Green -->
+          <div class="player-card green" id="card-green">
+            <div class="player-card-header">
+              <span class="player-card-name">
+                <span class="player-dot green"></span>Green
+              </span>
+              <span class="player-card-type">AI</span>
+            </div>
+            <div class="player-tokens-status">
+              <span class="mini-token-indicator"></span>
+              <span class="mini-token-indicator"></span>
+              <span class="mini-token-indicator"></span>
+              <span class="mini-token-indicator"></span>
+            </div>
+          </div>
+          <!-- Yellow -->
+          <div class="player-card yellow" id="card-yellow">
+            <div class="player-card-header">
+              <span class="player-card-name">
+                <span class="player-dot yellow"></span>Yellow
+              </span>
+              <span class="player-card-type">AI</span>
+            </div>
+            <div class="player-tokens-status">
+              <span class="mini-token-indicator"></span>
+              <span class="mini-token-indicator"></span>
+              <span class="mini-token-indicator"></span>
+              <span class="mini-token-indicator"></span>
+            </div>
+          </div>
+          <!-- Blue -->
+          <div class="player-card blue" id="card-blue">
+            <div class="player-card-header">
+              <span class="player-card-name">
+                <span class="player-dot blue"></span>Blue
+              </span>
+              <span class="player-card-type">HUMAN</span>
+            </div>
+            <div class="player-tokens-status">
+              <span class="mini-token-indicator"></span>
+              <span class="mini-token-indicator"></span>
+              <span class="mini-token-indicator"></span>
+              <span class="mini-token-indicator"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dice Area -->
+        <div class="dice-container">
+          <div class="scene" id="dice-interactive-container">
+            <div class="dice" id="dice-cube">
+              <!-- Face 1 -->
+              <div class="dice-face face-1"><span class="dot dot-1"></span></div>
+              <!-- Face 6 -->
+              <div class="dice-face face-6">
+                <span class="dot"></span><span class="dot"></span>
+                <span class="dot"></span><span class="dot"></span>
+                <span class="dot"></span><span class="dot"></span>
+              </div>
+              <!-- Face 3 -->
+              <div class="dice-face face-3">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              </div>
+              <!-- Face 4 -->
+              <div class="dice-face face-4">
+                <span class="dot"></span><span class="dot"></span>
+                <span class="dot"></span><span class="dot"></span>
+              </div>
+              <!-- Face 2 -->
+              <div class="dice-face face-2">
+                <span class="dot"></span><span class="dot"></span>
+              </div>
+              <!-- Face 5 -->
+              <div class="dice-face face-5">
+                <span class="dot"></span><span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span><span class="dot"></span>
+              </div>
+            </div>
+          </div>
+          <div class="roll-status-text" id="roll-status">Roll the dice!</div>
+          <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">(Or press Spacebar)</span>
+        </div>
+
+        <!-- Console Log -->
+        <div class="log-panel">
+          <div class="log-title">Game Feed</div>
+          <div class="log-content" id="log-content">
+            <div class="log-entry system">Welcome to Ludo Neo! Choose players and click Launch.</div>
+          </div>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="settings-row">
+          <button class="settings-btn" onclick="toggleAudio()" title="Toggle Sound">
+            <span id="audio-icon">🔊</span> Sounds
+          </button>
+          <button class="settings-btn" onclick="resetToSetup()">
+            ❌ Exit Game
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Board Wrapper -->
+    <div class="board-outer-container">
+      <div style="position: relative;">
+        <!-- Confetti layer -->
+        <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
+        <!-- Actual board grid -->
+        <div class="board" id="board">
+          <!-- Will be rendered dynamically via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Winners Modal -->
+  <div class="modal-overlay" id="winner-modal">
+    <div class="modal">
+      <span class="modal-icon">🏆</span>
+      <h2 class="modal-title" id="winner-title-text">Red Wins!</h2>
+      <p class="modal-desc">Excellent game! Here are the statistics for this round:</p>
+      
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Done</th>
+            <th>Rolls</th>
+            <th>Captures</th>
+            <th>Avg</th>
+          </tr>
+        </thead>
+        <tbody id="stats-table-body">
+          <!-- Stats rows added dynamically -->
+        </tbody>
+      </table>
+
+      <button class="btn" onclick="resetToSetup()">New Game</button>
+    </div>
+  </div>
+
+  <!-- Rules / Help Modal -->
+  <div class="modal-overlay" id="rules-modal">
+    <div class="modal" style="max-width: 550px;">
+      <h2 class="modal-title">Ludo Neo Rules</h2>
+      <div class="modal-desc" style="max-align: left; text-align: left; max-height: 350px; overflow-y: auto;">
+        <ul class="rules-list">
+          <li><strong>Deployment:</strong> A player must roll a <strong>6</strong> to move a token out of the base onto the starting cell.</li>
+          <li><strong>Extra Rolls:</strong> Rolling a 6, capturing an opponent's piece, or landing a token in the Home triangle grants an additional roll.</li>
+          <li><strong>Three Sixes Rule:</strong> Rolling three consecutive 6s skips the turn to prevent lucky streaks.</li>
+          <li><strong>Safe Zones (★):</strong> Star cells and starting cells are safe zones. Opponents cannot capture you there, and multiple players can occupy safe cells.</li>
+          <li><strong>Capture:</strong> Landing on an opponent's token in a non-safe cell captures it, sending it back to their base.</li>
+          <li><strong>Home Stretch:</strong> Once a token circles the board, it enters the home stretch. A player needs an exact roll to land a piece in the central Home triangle.</li>
+        </ul>
+      </div>
+      <button class="btn" style="margin-top: 15px;" onclick="closeRules()">Got it</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="audio.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

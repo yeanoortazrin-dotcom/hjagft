@@ -1,0 +1,17 @@
+{
+  "name": "ludo-neo",
+  "version": "1.0.0",
+  "description": "A premium cyberpunk Ludo board game featuring Web Audio sound synthesis, 3D dice physics, custom path tracing, and heuristic AI players.",
+  "scripts": {
+    "dev": "npx -y http-server -p 8088"
+  },
+  "keywords": [
+    "ludo",
+    "board-game",
+    "cyberpunk",
+    "retro-audio",
+    "ai"
+  ],
+  "author": "Antigravity Pair",
+  "license": "MIT"
+}
